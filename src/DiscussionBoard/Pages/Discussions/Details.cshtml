@@ -1,0 +1,39 @@
+﻿@page "/Discussion/{id:int}"
+@model DiscussionBoard.Pages.Discussions.DetailsModel
+@{
+    ViewData["Title"] = Model.Thread?.Title ?? "Discussion Thread";
+}
+
+<div class="container mt-4">
+    @if (Model.Thread == null)
+    {
+        <div class="alert alert-danger">Thread not found.</div>
+    }
+    else
+    {
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-body">
+                <h1 class="display-6 fw-bold">@Model.Thread.Title</h1>
+                <p class="text-muted small">Posted by @(Model.Thread.ApplicationUser?.UserName ?? "Anonymous") on @Model.Thread.CreatedAt.ToString("g")</p>
+                <hr />
+                <p class="lead" style="white-space: pre-wrap;">@Model.Thread.Content</p>
+            </div>
+        </div>
+
+        <h3 class="mb-3">Replies</h3>
+
+        @if (Model.Posts == null || !Model.Posts.Any())
+        {
+            <p class="text-muted bg-light p-4 rounded text-center">No replies yet. Be the first to add a comment!</p>
+        }
+        else
+        {
+            <div class="discussion-posts">
+                @foreach (var node in Model.Posts)
+                {
+                    <partial name="_PostTree" model="node" />
+                }
+            </div>
+        }
+    }
+</div>

@@ -25,6 +25,7 @@ public class ForumsModel : PageModel
     /// </summary>
     public async Task OnGetAsync()
     {
-        Items = await _forums.GetAllAsync();
+        var forums = await _forums.GetAllAsync();
+        Items = forums.ToList();
     }
 }

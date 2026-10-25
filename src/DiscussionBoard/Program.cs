@@ -34,6 +34,10 @@ namespace DiscussionBoard
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+            builder.Services.AddScoped<ForumService>();
+            builder.Services.AddScoped<DiscussionThreadService>();
+            builder.Services.AddScoped<PostService>();
+
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
                     options.SignIn.RequireConfirmedAccount = !builder.Environment.IsDevelopment())
                 .AddEntityFrameworkStores<ApplicationDbContext>();
