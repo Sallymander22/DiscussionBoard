@@ -27,11 +27,13 @@ public class DetailsModel : PageModel
         {
             return NotFound();
         }
-
-        Threads = await _context.DiscussionThreads
+        var threadsList = await _context.DiscussionThreads
             .Where(t => t.ForumId == id && !t.IsDeleted)
-            .OrderByDescending(t => t.CreatedAt)
             .ToListAsync();
+
+        Threads = threadsList
+                .OrderByDescending(t => t.CreatedAt)
+                .ToList();
 
         return Page();
     }

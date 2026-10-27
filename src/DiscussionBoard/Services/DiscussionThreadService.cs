@@ -33,7 +33,7 @@ public class DiscussionThreadService
     {
         return await _context.DiscussionThreads
             .Where(t => t.ForumId == forumId && !t.IsDeleted)
-            .OrderByDescending(t => t.Id) // 👈 Changed to Id for safety across SQLite versions too
+            .OrderByDescending(t => t.Id) //
             .ToListAsync();
     }
 

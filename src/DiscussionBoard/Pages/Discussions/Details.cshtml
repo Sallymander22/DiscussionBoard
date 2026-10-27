@@ -28,12 +28,42 @@
         }
         else
         {
-            <div class="discussion-posts">
+            <div class="discussion-posts mb-4">
                 @foreach (var node in Model.Posts)
                 {
                     <partial name="_PostTree" model="node" />
                 }
             </div>
         }
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">Join the Conversation</h5>
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input type="hidden" name="ThreadId" value="@Model.Thread.Id" />
+
+                        <div class="form-group mb-3">
+                            <textarea name="NewPostContent" class="form-control" rows="4" placeholder="Write a respectful reply..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Post Reply</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info mt-4">
+            Please log in
+            to participate in this discussion.
+                </div>
+        }
     }
 </div>
+

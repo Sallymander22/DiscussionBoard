@@ -37,7 +37,7 @@ public class CreateModel : PageModel
         public string Content { get; set; }
     }
 
-    public IActionResult OnGet(int forumId)
+    public async Task<IActionResult> OnGetAsync(int forumId)
     {
         ForumId = forumId;
         return Page();
